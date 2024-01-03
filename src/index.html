@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>17 - Haunted House</title>
     <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
     <canvas class="webgl"></canvas>
+    <div id="hud">
+        <p id="camera-info">Current Camera: Base Camera</p>
+        <p>Change Camera: Left Arrow / Right Arrow</p>
+        <p id="current-play">No music is playing</p>
+        <div class="buttonsMusic">
+            <button id="play-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>Play Music</button>
+            <button id="pause-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>Pause Music</button>
+        </div>
+    </div>
     <script type="module" src="./script.js"></script>
 </body>
+
 </html>
