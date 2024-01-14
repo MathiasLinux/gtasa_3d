@@ -1,5 +1,4 @@
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import GUI from "lil-gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
@@ -321,14 +320,6 @@ carCamera2.position.z = 1.8;
 carCamera2.rotation.y = -(Math.PI * 0.5);
 car2.add(carCamera2);
 
-// Controls
-const controls = new OrbitControls(camera, canvas);
-controls.enableDamping = true;
-
-controls.target.z = -45;
-controls.target.y = 1;
-controls.target.x = -3.5;
-
 const cameras = [
     { name: "Base Camera", camera: camera },
     { name: "Casino Camera", camera: casinoCamera },
@@ -429,9 +420,6 @@ const tick = () => {
     if (car2.position.x > 60) {
         car2.position.x = 0;
     }
-
-    // Update controls
-    controls.update();
 
     // Render
     renderer.render(scene, cameras[currentCameraIndex].camera);
