@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import GUI from "lil-gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import Stats from 'three/examples/jsm/libs/stats.module';
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 
 /**
@@ -393,6 +394,14 @@ document.querySelector("#pause-button").addEventListener("click", function () {
 });
 
 /**
+ * FPS Counter
+ */
+
+// Stats at the bottom left
+const stats = new Stats()
+document.body.appendChild(stats.dom)
+
+/**
  * Renderer
  */
 const renderer = new THREE.WebGLRenderer({
@@ -439,6 +448,8 @@ const tick = () => {
     if (car2.position.x > 60) {
         car2.position.x = 0;
     }
+
+    stats.update()
 
     // Render
     renderer.render(scene, cameras[currentCameraIndex].camera);
