@@ -77,6 +77,12 @@ scene.add(casinoLights3);
  */
 // Add the road glb model
 modelLoader.load("/models/The_Strip_GTA_SA_Road.glb", (gltf) => {
+    gltf.scene.traverse(function (node) {
+        if (node.isMesh) {
+            node.castShadow = true;
+            node.receiveShadow = true;
+        }
+    })
     gltf.scene.scale.set(0.1, 0.1, 0.1);
     gltf.scene.position.set(0, 0, 0);
     gltf.castShadow = true;
@@ -86,6 +92,12 @@ modelLoader.load("/models/The_Strip_GTA_SA_Road.glb", (gltf) => {
 
 // Add a second road
 modelLoader.load("/models/The_Strip_GTA_SA_Road.glb", (gltf) => {
+    gltf.scene.traverse(function (node) {
+        if (node.isMesh) {
+            node.castShadow = true;
+            node.receiveShadow = true;
+        }
+    })
     gltf.scene.scale.set(0.1, 0.1, 0.1);
     gltf.scene.position.set(-15.925, 0, 0);
     gltf.castShadow = true;
@@ -95,6 +107,12 @@ modelLoader.load("/models/The_Strip_GTA_SA_Road.glb", (gltf) => {
 
 // Add a third road
 modelLoader.load("/models/The_Strip_GTA_SA_Road.glb", (gltf) => {
+    gltf.scene.traverse(function (node) {
+        if (node.isMesh) {
+            node.castShadow = true;
+            node.receiveShadow = true;
+        }
+    })
     gltf.scene.scale.set(0.1, 0.1, 0.1);
     gltf.scene.position.set(-31.85, 0, 0);
     gltf.castShadow = true;
@@ -104,6 +122,12 @@ modelLoader.load("/models/The_Strip_GTA_SA_Road.glb", (gltf) => {
 
 // Add a fourth road before the casino
 modelLoader.load("/models/The_Strip_GTA_SA_Road.glb", (gltf) => {
+    gltf.scene.traverse(function (node) {
+        if (node.isMesh) {
+            node.castShadow = true;
+            node.receiveShadow = true;
+        }
+    })
     gltf.scene.scale.set(0.1, 0.1, 0.1);
     gltf.scene.position.set(15.925, 0, 0);
     gltf.castShadow = true;
