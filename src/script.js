@@ -47,7 +47,6 @@ scene.add(casinoLights);
 // Add the casino lights for the second palm tree
 const casinoLights1 = new THREE.PointLight("#ffff80", 5, 30);
 casinoLights1.position.set(0.15, 1.8, 3.3);
-casinoLights1.castShadow = true;
 scene.add(casinoLights1);
 
 // Add a second casino
@@ -130,7 +129,6 @@ modelLoader.load("/models/greenwood_gta_sa.glb", (gltf) => {
 const carLights = new THREE.SpotLight("#ffe7a6");
 carLights.position.set(-0.85 + 15, 0.25, 0.2);
 carLights.target.position.x = -5;
-carLights.castShadow = true;
 car.add(carLights);
 
 const carLights1 = new THREE.PointLight("#ffe7a6", 1, 10);
@@ -142,7 +140,6 @@ car.add(carLights1);
 const carLights2 = new THREE.SpotLight("#ffe7a6");
 carLights2.position.set(-0.85 + 15, 0.25, -0.2);
 carLights2.target.position.x = -5;
-carLights2.castShadow = true;
 car.add(carLights2);
 
 const carLights3 = new THREE.PointLight("#ffe7a6", 1, 10);
@@ -153,12 +150,10 @@ car.add(carLights3);
 // Add the rear lights
 const rearLights = new THREE.PointLight("#ff0000", 0.8, 8);
 rearLights.position.set(0.85 + 15, 0.25, 0.25);
-rearLights.castShadow = true;
 car.add(rearLights);
 
 const rearLights1 = new THREE.PointLight("#ff0000", 0.8, 8);
 rearLights1.position.set(0.85 + 15, 0.25, -0.25);
-rearLights1.castShadow = true;
 car.add(rearLights1);
 
 // Add a second car
@@ -268,7 +263,7 @@ window.addEventListener("resize", () => {
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(
-    75,
+    85,
     sizes.width / sizes.height,
     0.1,
     1000
@@ -281,7 +276,7 @@ scene.add(camera);
 // Casino 2 camera
 
 const casinoCamera = new THREE.PerspectiveCamera(
-    75,
+    85,
     sizes.width / sizes.height,
     0.1,
     1000
@@ -295,7 +290,7 @@ scene.add(casinoCamera);
 // Car camera
 
 const carCamera = new THREE.PerspectiveCamera(
-    75,
+    85,
     sizes.width / sizes.height,
     0.1,
     1000
@@ -309,7 +304,7 @@ car.add(carCamera);
 // Car camera 2
 
 const carCamera2 = new THREE.PerspectiveCamera(
-    75,
+    85,
     sizes.width / sizes.height,
     0.1,
     1000
