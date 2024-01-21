@@ -1,8 +1,7 @@
 import * as THREE from "three";
 import GUI from "lil-gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import Stats from 'three/examples/jsm/libs/stats.module';
-import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
+// import Stats from 'three/examples/jsm/libs/stats.module';
 
 /**
  * Base
@@ -159,7 +158,13 @@ car.add(carLights);
 const carLights1 = new THREE.PointLight("#ffe7a6", 1, 10);
 carLights1.position.set(-0.85 + 15, 0.25, 0.2);
 carLights1.castShadow = true;
+carLights1.shadow.mapSize.width = 1024;
+carLights1.shadow.mapSize.height = 1024;
 car.add(carLights1);
+
+// Add a point light helper
+// const helper = new THREE.PointLightHelper(carLights1)
+// scene.add(helper)
 
 // Car lights 2
 const carLights2 = new THREE.SpotLight("#ffe7a6");
@@ -170,6 +175,8 @@ car.add(carLights2);
 const carLights3 = new THREE.PointLight("#ffe7a6", 1, 10);
 carLights3.position.set(-0.85 + 15, 0.25, -0.2);
 carLights3.castShadow = true;
+carLights3.shadow.mapSize.width = 1024;
+carLights3.shadow.mapSize.height = 1024;
 car.add(carLights3);
 
 // Add the rear lights
@@ -204,6 +211,8 @@ car2.add(car2Lights);
 const car2Lights1 = new THREE.PointLight("#ffe7a6", 1, 10);
 car2Lights1.position.set(0.85 - 45, 0.25, 2);
 car2Lights1.castShadow = true;
+car2Lights1.shadow.mapSize.width = 1024;
+car2Lights1.shadow.mapSize.height = 1024;
 car2.add(car2Lights1);
 
 // Car lights 2
@@ -216,17 +225,23 @@ car2.add(car2Lights2);
 const car2Lights3 = new THREE.PointLight("#ffe7a6", 1, 10);
 car2Lights3.position.set(0.85 - 45, 0.25, 1.6);
 car2Lights3.castShadow = true;
+car2Lights3.shadow.mapSize.width = 1024;
+car2Lights3.shadow.mapSize.height = 1024;
 car2.add(car2Lights3);
 
 // Add the rear lights
 const car2RearLights = new THREE.PointLight("#ff0000", 0.8, 8);
 car2RearLights.position.set(-0.85 - 45, 0.25, 1.95);
 car2RearLights.castShadow = true;
+car2RearLights.shadow.mapSize.width = 1024;
+car2RearLights.shadow.mapSize.height = 1024;
 car2.add(car2RearLights);
 
 const car2RearLights1 = new THREE.PointLight("#ff0000", 0.8, 8);
 car2RearLights1.position.set(-0.85 - 45, 0.25, 1.55);
 car2RearLights1.castShadow = true;
+car2RearLights1.shadow.mapSize.width = 1024;
+car2RearLights1.shadow.mapSize.height = 1024;
 car2.add(car2RearLights1);
 
 /**
@@ -239,7 +254,7 @@ skyTexture.colorSpace = THREE.SRGBColorSpace;
 const skyGeometry = new THREE.SphereGeometry(500, 60, 40);
 skyGeometry.scale(-1, 1, 1);
 
-const skyMaterial = new THREE.MeshBasicMaterial({ map: skyTexture });
+const skyMaterial = new THREE.MeshBasicMaterial({ map: skyTexture, side: THREE.DoubleSide });
 
 const sky = new THREE.Mesh(skyGeometry, skyMaterial);
 scene.add(sky);
@@ -249,16 +264,16 @@ scene.add(sky);
  */
 // Ambient light
 const ambientLight = new THREE.AmbientLight("#ffffff", 0.2);
-gui.add(ambientLight, "intensity").min(0).max(1).step(0.001);
+gui.add(ambientLight, "intensity").min(0).max(1).step(0.001).name("Ambient Light Intensity");
 scene.add(ambientLight);
 
 // Directional light
 const moonLight = new THREE.DirectionalLight("#ffffff", 0.8);
 moonLight.position.set(4, 5, -2);
-gui.add(moonLight, "intensity").min(0).max(1).step(0.001);
-gui.add(moonLight.position, "x").min(-5).max(5).step(0.001);
-gui.add(moonLight.position, "y").min(-5).max(5).step(0.001);
-gui.add(moonLight.position, "z").min(-5).max(5).step(0.001);
+gui.add(moonLight, "intensity").min(0).max(1).step(0.001).name("Moon Light Intensity");
+gui.add(moonLight.position, "x").min(-5).max(5).step(0.001).name("Moon Light X Position");
+gui.add(moonLight.position, "y").min(-5).max(5).step(0.001).name("Moon Light Y Position");
+gui.add(moonLight.position, "z").min(-5).max(5).step(0.001).name("Moon Light Z Position");
 scene.add(moonLight);
 
 /**
@@ -366,6 +381,27 @@ window.addEventListener("keydown", (event) => {
     }
 });
 
+// Button to change the camera
+
+// Left button
+
+document.querySelector("#button-cam-left").addEventListener("click", function () {
+    // Switch to the previous camera
+    currentCameraIndex =
+        (currentCameraIndex - 1 + cameras.length) % cameras.length;
+    document.querySelector("#camera-info").textContent =
+        "Current Camera: " + cameras[currentCameraIndex].name;
+});
+
+// Right button
+
+document.querySelector("#button-cam-right").addEventListener("click", function () {
+    // Switch to the next camera
+    currentCameraIndex = (currentCameraIndex + 1) % cameras.length;
+    document.querySelector("#camera-info").textContent =
+        "Current Camera: " + cameras[currentCameraIndex].name;
+});
+
 /**
  * Audio
  */
@@ -398,8 +434,8 @@ document.querySelector("#pause-button").addEventListener("click", function () {
  */
 
 // Stats at the bottom left
-const stats = new Stats()
-document.body.appendChild(stats.dom)
+// const stats = new Stats()
+// document.body.appendChild(stats.dom)
 
 /**
  * Renderer
@@ -433,14 +469,6 @@ const tick = () => {
         car.position.x = 0;
     }
 
-    // // Update the car camera position
-    // carCamera.position.x -= 0.08
-
-    // // If the car camera is not on a road, reset its position
-    // if (carCamera.position.x < -40) {
-    //     carCamera.position.x = 17
-    // }
-
     // Update the second car position
     car2.position.x += 0.1;
 
@@ -449,7 +477,7 @@ const tick = () => {
         car2.position.x = 0;
     }
 
-    stats.update()
+    // stats.update()
 
     // Render
     renderer.render(scene, cameras[currentCameraIndex].camera);
